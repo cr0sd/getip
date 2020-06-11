@@ -2,10 +2,10 @@
 
 # Detect whether using net-tools --> ifconfig
 # Or iproute2 --> ip
-if [ $(which ip) != '' ];
+if [ "$(which ip)" != '' ];
 then
 	IPTOOL='ip a'
-elif [ $(which ifconfig) != '' ];
+elif [ "$(which ifconfig)" != '' ];
 then
 	IPTOOL='ifconfig'
 else
@@ -15,10 +15,10 @@ fi
 
 # Print IP addresses reported by IPTOOL
 case "$1" in
-	'-4')		$IPTOOL|awk '/\<inet\>/{print $2}' ;;
-	'-6')		$IPTOOL|awk '/\<inet6\>/{print $2}' ;;
+	'-4')		$IPTOOL|awk '/inet[^6]*/{print $2}' ;;
+	'-6')		$IPTOOL|awk '/inet6/{print $2}' ;;
 	'--help')	;&
 	'-h')		echo "usage: getip [-4|-6] [--help|-h]" ;;
-	'')			$IPTOOL|awk '/\<inet/{print $2}' ;;
+	'')			$IPTOOL|awk '/inet/{print $2}' ;;
 	*)			echo "error: unknown option '$1'";;
 esac
