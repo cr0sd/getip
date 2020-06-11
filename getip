@@ -21,7 +21,7 @@ case "$1" in
 	'-6')		$IPTOOL|awk '/inet6/{print $2}' ;;
 	'')			$IPTOOL|awk '/inet/{print $2}' ;;
 
-	'--help')	echo $HELPMSG ;;
-	'-h')		echo $HELPMSG ;;
+	'--help')	echo "$HELPMSG" ;;
+	'-h')		echo "$HELPMSG" ;;
 	*)			echo "error: unknown option '$1'";;
 esac
