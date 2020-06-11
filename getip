@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+
+HELPMSG="usage: getip [-4|-6] [--help|-h]"
 
 # Detect whether using net-tools --> ifconfig
 # Or iproute2 --> ip
@@ -15,10 +17,11 @@ fi
 
 # Print IP addresses reported by IPTOOL
 case "$1" in
-	'-4')		$IPTOOL|awk '/inet /{print $2}' ;;
+	'-4')		$IPTOOL|awk '/inet[ \t]/{print $2}' ;;
 	'-6')		$IPTOOL|awk '/inet6/{print $2}' ;;
-	'--help')	;&
-	'-h')		echo "usage: getip [-4|-6] [--help|-h]" ;;
 	'')			$IPTOOL|awk '/inet/{print $2}' ;;
+
+	'--help')	echo $HELPMSG ;;
+	'-h')		echo $HELPMSG ;;
 	*)			echo "error: unknown option '$1'";;
 esac
