@@ -18,7 +18,7 @@ case "$1" in
 	'-4')		$IPTOOL|awk '/\<inet\>/{print $2}' ;;
 	'-6')		$IPTOOL|awk '/\<inet6\>/{print $2}' ;;
 	'--help')	;&
-	'-h')		echo "usage: getip [-4|-6]" ;;
+	'-h')		echo "usage: getip [-4|-6] [--help|-h]" ;;
 	'')			$IPTOOL|awk '/\<inet/{print $2}' ;;
 	*)			echo "error: unknown option '$1'";;
 esac
