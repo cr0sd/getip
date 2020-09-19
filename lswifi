@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Help / usage
+if [ "$1" = "--help" ]; then
+	echo "usage: $(basename $0) [-g] [--help]"
+	exit
+fi
+
+# Run as root
+if [ $(id -un) != 'root' ]; then
+	echo "error: run as root"
+	exit
+fi
+
+# Find wireless networks / access points
+if [ "$1" = "-g" ]; then
+	gxmessage "$(iw dev wlan0 scan|awk '/^\s*SSID:/{$1=""; print $0}'|sed '/^$/d')"
+else
+	iw dev wlan0 scan|awk '/^\s*SSID:/{$1=""; print $0}'|sed '/^$/d'
+fi
